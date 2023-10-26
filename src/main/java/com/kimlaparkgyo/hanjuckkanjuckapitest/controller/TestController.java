@@ -36,6 +36,9 @@ public class TestController {
 
     /**
      * 실시간 장소 혼잡도
+     * poiId가 있고, 위도 경도값도 같이 요청에 담았을 경우 poiId에 해당하는 장소의 혼잡도와 위도경도에 해당하는 위치의 혼잡도를 같이 보여줌
+     * poiId가 없을때는 위도경도에 해당하는 위치의 혼잡도만 보여줌
+     * 위도경도값이 없을때는 poiId에 해당하는 장소의 혼잡도만 보여줌
      */
     @GetMapping("/puzzle/place/meta/pois/{poiId}")
     public Mono<String> getPoisCongestion(@PathVariable String poiId, LocationRequest request) {
