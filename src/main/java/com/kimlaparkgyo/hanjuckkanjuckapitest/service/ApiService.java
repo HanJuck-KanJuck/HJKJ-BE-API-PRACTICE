@@ -1,5 +1,6 @@
 package com.kimlaparkgyo.hanjuckkanjuckapitest.service;
 
+import com.kimlaparkgyo.hanjuckkanjuckapitest.dto.LocationRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -27,6 +28,17 @@ public class ApiService {
     public Mono<String> getArea() {
         return webClient.get()
                 .uri("/puzzle/place/meta/areas")
+                .retrieve()
+                .bodyToMono(String.class);
+    }
+
+    public Mono<String> getRealtimePoisCongestion(String poiId, LocationRequest request) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/puzzle/place/congestion/rltm/pois/{poiId}")
+                        .queryParam("lng", request.getLng())
+                        .queryParam("lat", request.getLat())
+                        .build(poiId))
                 .retrieve()
                 .bodyToMono(String.class);
     }
